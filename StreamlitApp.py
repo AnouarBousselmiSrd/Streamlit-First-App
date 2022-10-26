@@ -55,8 +55,11 @@ def to_excel(df1, df2):
             x=df2[sheet]
             y=df1[sheet]
             for column in x.columns:
-                if column not in x.columns:
+                if column not in y.columns:
                     x.drop(column , axis=1, inplace=True)
+            for column in y.columns:
+                if column not in x.columns:
+                    y.drop(column , axis=1, inplace=True)
             df3 = y[x.ne(y).any(axis=1)]
             df3.to_excel(writer, sheet_name=sheet, index=False, header=True)
     writer.save()
