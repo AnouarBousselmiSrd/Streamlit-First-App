@@ -8,7 +8,7 @@ Created on Mon Oct 17 09:46:00 2022
 import streamlit as st
 import pandas as pd 
 from io import BytesIO
-from pyxlsb import open_workbook as open_xlsb
+#from pyxlsb import open_workbook as open_xlsb
 
 header = st.container()
 dataset = st.container()
@@ -34,8 +34,6 @@ if uploaded_file1:
         df1[sheet]=df1[sheet].apply(lambda x: x.astype(str).str.upper())
         df1[sheet]=df1[sheet].apply(lambda x: x.astype(str).str.strip())
     
-    
-    
 if uploaded_file2:
     # Check MIME type of the uploaded file
     if uploaded_file2.type == "text/csv":
@@ -56,6 +54,9 @@ def to_excel(df1, df2):
         if sheet in df2:
             x=df2[sheet]
             y=df1[sheet]
+            for column in x.columns:
+                if column not in x.columns:
+                    x.drop(column , axis=1, inplace=True)
             df3 = y[x.ne(y).any(axis=1)]
             df3.to_excel(writer, sheet_name=sheet, index=False, header=True)
     writer.save()
