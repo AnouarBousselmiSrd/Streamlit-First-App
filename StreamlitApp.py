@@ -18,10 +18,10 @@ test1=False
 test2=False
 
 with header:
-    st.title("Files diffrence automation check")
-    st.text("upload your files here to check the diffrences")
-    uploaded_file1 = st.file_uploader("Choose a file 'the new version'")
-    uploaded_file2 = st.file_uploader("Choose a file 'the old version'")
+    st.title("Conferência de Database")
+    st.text("Escolha os arquivos para serem comparados")
+    uploaded_file1 = st.file_uploader("Escolha a nova versão")
+    uploaded_file2 = st.file_uploader("escolha a versão antiga")
 
 if uploaded_file1:
     # Check MIME type of the uploaded file
@@ -68,6 +68,6 @@ def to_excel(df1, df2):
 
 if test1 & test2:
     df_xlsx = to_excel(df1, df2)
-    st.download_button(label='📥 Download Current Result',
+    st.download_button(label='📥 Baixar Resultado',
                                 data=df_xlsx ,
                                 file_name= 'df_test.xlsx')
